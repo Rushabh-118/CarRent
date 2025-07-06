@@ -23,7 +23,37 @@ const CarDetails = () => {
             <img src={car.image} alt="" className='w-full h-auto md:max-h-100 object-cover rounded-xl shadow-md'/>
             <div className='space-y-6'>
               <h1 className='text-3xl font-bold'>{car.brand} {car.model}</h1>
-              
+              <p>{car.category} {car.year} </p>
+            </div>
+            <hr className='border-borderColor my-6'/>
+            <div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
+              {[
+                {icon: assets.users_icon, text: `${car.seating_capacity} Seats`},
+                {icon: assets.fuel_icon, text: `${car.fuel_type}`},
+                {icon: assets.car_icon, text: `${car.transmission}`},
+                {icon: assets.location_icon, text: `${car.location}`},
+              ].map(({icon, text}) => {
+                <div key={text} className='flex flex-col items-center bg-light p-4 rounded-lg'>
+                  <img src={icon} alt="" className='h-5 mb-2'/>{text}
+                </div>
+              })}
+            </div>
+            <div>
+              <h1 className='text-2xl font-medium'>Description</h1>
+              <p className='text-gray-400'>{car.description}</p>
+            </div>
+            <div>
+              <h1 className='text-2xl font-medium'>Features</h1>
+              <ul className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                {
+                  ["360° Camera", "Bluetooth", "Navigation System", "Sunroof", "Leather Seats", "Heated Seats"].map((item) => (
+                    <li key={item} className='flex items-center text-gray-400'>
+                      <img src={assets.check_icon} alt="" className='h-4 mr-4'/>
+                      {item}
+                    </li> 
+                  ))
+                }
+              </ul>
             </div>
           </div>
           <form ></form>
