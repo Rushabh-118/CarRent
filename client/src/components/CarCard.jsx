@@ -7,7 +7,7 @@ const CarCard = ({ car }) => {
     const currency = import.meta.env.VITE_CURRENCY;
     const navigate = useNavigate();
   return (
-    <div onClick={() => {navigate(`/cars-details/${car._id}`); scrollTo(0, 0)}} className='border border-gray-300 p-4 rounded-md'>
+    <div onClick={() => {navigate(`/car-details/${car._id}`); scrollTo(0, 0)}} className='border border-gray-300 p-4 rounded-md'>
       <div className='relative h-48 overflow-hidden'>
         <img src={car.image} alt='car Image' className='w-full h-48 object-cover rounded-md mb-4' />
         {car.isAvailable && <p className='absolute top-4 left-4 text-white px-2.5 py-1 rounded-full'>Available</p>}

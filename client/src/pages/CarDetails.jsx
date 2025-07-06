@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { dummyCarData } from '../assets/assets';
+import { dummyCarData, assets } from '../assets/assets';
 import Loader from '../components/Loader';
 
 const CarDetails = () => {
@@ -33,11 +33,11 @@ const CarDetails = () => {
                 {icon: assets.fuel_icon, text: `${car.fuel_type}`},
                 {icon: assets.car_icon, text: `${car.transmission}`},
                 {icon: assets.location_icon, text: `${car.location}`},
-              ].map(({icon, text}) => {
+              ].map(({icon, text}) => (
                 <div key={text} className='flex flex-col items-center bg-light p-4 rounded-lg'>
                   <img src={icon} alt="" className='h-5 mb-2'/>{text}
                 </div>
-              })}
+              ))}
             </div>
             <div>
               <h1 className='text-2xl font-medium'>Description</h1>
