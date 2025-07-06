@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { dummyCarData } from '../assets/assets';
+import Loader from '../components/Loader';
 
 const CarDetails = () => {
 
@@ -59,7 +60,7 @@ const CarDetails = () => {
           <form ></form>
         </div>
     </div>
-  ) : <p>Loading....</p>
+  ) : <Loader />
 }
 
 export default CarDetails
