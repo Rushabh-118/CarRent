@@ -10,7 +10,7 @@ const CarCard = ({ car }) => {
     <div onClick={() => {navigate(`/car-details/${car._id}`); scrollTo(0, 0)}} className='border border-gray-300 p-4 rounded-md'>
       <div className='relative h-48 overflow-hidden'>
         <img src={car.image} alt='car Image' className='w-full h-48 object-cover rounded-md mb-4' />
-        {car.isAvailable && <p className='absolute top-4 left-4 text-white px-2.5 py-1 rounded-full'>Available</p>}
+        {car.isAvaliable && <p className='absolute top-4 left-4 text-white px-2.5 py-1 rounded-4xl bg-blue-600'>Available Now</p>}
         <div className='absolute bottom-4 right-4 bg-black/80 text-white px-2 py-1 rounded-md'>
             <span>{currency}{car.pricePerDay} </span>
             <span className='text-xs'>/day</span>
