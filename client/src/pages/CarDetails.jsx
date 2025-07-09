@@ -8,6 +8,13 @@ const CarDetails = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const [car, setCar] = useState(null);
+  const currency = import.meta.env.VITE_CURRENCY;
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+  }
 
   useEffect(() => {
     setCar(dummyCarData.find(car => car._id === id))
@@ -57,7 +64,21 @@ const CarDetails = () => {
               </ul>
             </div>
           </div>
-          <form ></form>
+          <form onSubmit={handleSubmit} className='shadow-lg h-max sticky top-18 rounded-2xl p-6 space-y-6 text-gray-500'>
+            <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'>{currency} {car.pricePerDay} <span className='text-gray-400 font-normal text-base'>per day</span></p>
+            <hr className='border-borderColor my-6' />
+            <div className='flex flex-col gap-2'>
+              <label htmlFor="pickup-date" >Pickup Date</label>
+              <input type="date" id="pickup-date" className='border border-borderColor px-3 py-2 rounded-lg' required min={new Date().toISOString().split("T")[0]} />
+            </div>
+            <div className='flex flex-col gap-2'>
+              <label htmlFor="return-date" >Return Date</label>
+              <input type="date" id="return-date" className='border border-borderColor px-3 py-2 rounded-lg' required />
+            </div>
+
+            <button className='w-full bg-primary text-white py-2 rounded-lg'>Book Now</button>
+            <p className='text-center text-gray-400'>No credit card required</p>
+          </form>
         </div>
     </div>
   ) : <Loader />
