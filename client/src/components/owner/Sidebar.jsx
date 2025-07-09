@@ -16,7 +16,7 @@ const Sidebar = () => {
     <aside className='relative min-h-screen flex flex-col items-center pt-10 md:w-64 w-full text-sm border-r border-borderColor bg-gradient-to-b from-white to-gray-50 shadow-lg'>
       <div className='group relative flex flex-col items-center mb-6'>
         <label htmlFor="image" className="cursor-pointer flex flex-col items-center">
-            <img src={image ? URL.createObjectURL(image) : user?.image || "https://tse1.explicit.bing.net/th/id/OIP.awAiMS1BCAQ2xS2lcdXGlwHaHH?rs=1&pid=ImgDetMain&o=7&rm=3"} alt="Profile" className="w-24 h-24 rounded-full object-cover border-4 border-primary shadow-lg mb-2 transition-all duration-300 hover:scale-105" />
+            <img src={image ? URL.createObjectURL(image) : user?.image || "https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001882.png"} alt="Profile" className="w-24 h-24 rounded-full object-cover border-4 border-primary shadow-lg mb-2 transition-all duration-300 hover:scale-105" />
             <input type="file" id='image' accept='image/*' onChange={(e) => setImage(e.target.files[0])} className="hidden" />
             <div className='absolute bottom-0 right-0 left-0 top-0 bg-black/20 rounded-full opacity-0 group-hover:opacity-100 flex justify-center items-center transition-opacity'>
                 <img src={assets.edit_icon} alt="Edit" className="w-7 h-7" />
