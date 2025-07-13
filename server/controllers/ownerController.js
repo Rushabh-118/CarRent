@@ -64,7 +64,7 @@ export const toggleCarAvailability = async (req, res) => {
     const { _id } = req.user;
     const { carId } = req.body;
     const car = await Car.findById(carId);
-    if (car.owner.toString() !== _id.toString)
+    if (car.owner.toString() !== _id.toString())
       return res.json({ success: false, message: "Unauthorized" });
     car.isAvalible = !car.isAvalible;
     await car.save();
@@ -80,7 +80,7 @@ export const deleteCar = async (req, res) => {
     const { _id } = req.user;
     const { carId } = req.body;
     const car = await Car.findById(carId);
-    if (car.owner.toString() !== _id.toString)
+    if (car.owner.toString() !== _id.toString())
       return res.json({ success: false, message: "Unauthorized" });
     car.owner = null;
     car.isAvalible = false;
@@ -119,7 +119,7 @@ export const getDashboardData = async (req, res) => {
       totalBookings: bookings.length,
       pendingBookings: pendingBookings.length,
       completedBookings: completedBookings.length,
-      recentBooking: bookings.slice(0, 3),
+      recentBookings: bookings.slice(0, 3),
       monthlyRevenue,
     };
     res.json({ success: true, dashboardData });
