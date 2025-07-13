@@ -1,15 +1,30 @@
 import React, { useState } from 'react'
-import { assets, dummyUserData, ownerMenuLinks } from '../../assets/assets'
+import { assets, ownerMenuLinks } from '../../assets/assets'
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAppContext } from '../../context/AppContext';
+import toast from 'react-hot-toast';
 
 const Sidebar = () => {
 
-    const user = dummyUserData;
+    const {user, axios , fetchUser} = useAppContext();
     const location = useLocation();
     const [image, setImage] = useState('');
     const updateImage = async () => {
-        user.image = URL.createObjectURL(image);
-        setImage('');
+      try {
+        const formData = new FormData()
+        formData.append('image', image)
+
+        const {data} = await axios.post('/api/owner/update-image', formData)
+        if(data.success) {
+          fetchUser()
+          toast.success(data.message)
+          setImage('')
+        } else {
+          toast.error(data.message)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      }
     }
 
   return (
@@ -24,7 +39,7 @@ const Sidebar = () => {
         </label>
       </div>
       {image && (
-        <button onClick={updateImage} className='absolute top-6 right-6 flex p-2 gap-1 cursor-pointer bg-primary/10 text-primary rounded-md shadow-md hover:bg-primary/20 transition'>Save <img src={assets.check_icon} width={15} alt="Save" /></button>
+        <button className='absolute top-6 right-6 flex p-2 gap-1 cursor-pointer bg-primary/10 text-primary rounded-md shadow-md hover:bg-primary/20 transition' onClick={updateImage}>Save <img src={assets.check_icon} width={15} alt="Save" /></button>
       )}
       <p className='mt-2 text-lg font-bold max-md:hidden text-center tracking-wide'>{user?.name}</p>
       <nav className='w-full mt-10 flex-1 flex flex-col gap-2 px-2'>

@@ -131,27 +131,27 @@ export const getDashboardData = async (req, res) => {
 
 export const updateUserImage = async (req, res) => {
   try {
-    const { _id, role } = req.user;
+    const { _id } = req.user;
     const imageFile = req.file;
+
     const fileBuffer = fs.readFileSync(imageFile.path);
-    const responce = await imagekit.upload({
+    const response = await imagekit.upload({
       file: fileBuffer,
       fileName: imageFile.originalname,
       folder: "/users",
     });
 
-    var imageURL = imagekit.url({
-      path: responce.filePath,
+    const imageURL = imagekit.url({
+      path: response.filePath,
       transformation: [
         { width: "1280" },
         { quality: "auto" },
         { format: "webp" },
       ],
     });
-    const image = imageURL;
-    await User.findByIdAndUpdate({ image });
-    res.json({ success: true, message: "Image Uploaded" });
 
+    await User.findByIdAndUpdate(_id, { image: imageURL });
+    res.json({ success: true, message: "Image Uploaded" });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
