@@ -1,4 +1,5 @@
 import imagekit from "../config/imageKit.js";
+import Booking from "../Models/Booking.js";
 import Car from "../Models/Car.js";
 import User from "../Models/User.js";
 import fs from "fs";
@@ -32,15 +33,124 @@ export const addCar = async (req, res) => {
     var imageURL = imagekit.url({
       path: responce.filePath,
       transformation: [
-        {width: '1280'},
-        {quality: 'auto'},
-        {format: 'webp'}
-      ]
+        { width: "1280" },
+        { quality: "auto" },
+        { format: "webp" },
+      ],
     });
 
     const image = imageURL;
-    await Car.create({...car, owner: _id, image})
-    res.json({success: true, message: "Car Added"})
+    await Car.create({ ...car, owner: _id, image });
+    res.json({ success: true, message: "Car Added" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const getOwnerCars = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const cars = await Car.find({ owner: _id });
+    res.json({ success: true, cars });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const toggleCarAvailability = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { carId } = req.body;
+    const car = await Car.findById(carId);
+    if (car.owner.toString() !== _id.toString)
+      return res.json({ success: false, message: "Unauthorized" });
+    car.isAvalible = !car.isAvalible;
+    await car.save();
+    res.json({ success: true, message: "Availability Toggled" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const deleteCar = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { carId } = req.body;
+    const car = await Car.findById(carId);
+    if (car.owner.toString() !== _id.toString)
+      return res.json({ success: false, message: "Unauthorized" });
+    car.owner = null;
+    car.isAvalible = false;
+    await car.save();
+    res.json({ success: true, message: "Car Removed" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const getDashboardData = async (req, res) => {
+  try {
+    const { _id, role } = req.user;
+    if (role !== "owner")
+      return res.json({ success: false, message: "Unauthorized" });
+    const cars = await Car.find({ owner: _id });
+    const bookings = await Booking.find({ owner: _id })
+      .populate("car")
+      .sort({ createdAt: -1 });
+
+    const pendingBookings = await Booking.find({
+      owner: _id,
+      status: "pending",
+    });
+    const completedBookings = await Booking.find({
+      owner: _id,
+      status: "confirmed",
+    });
+    const monthlyRevenue = bookings
+      .slice()
+      .filter((booking) => booking.status === "confirmed")
+      .reduce((acc, booking) => acc + booking.price, 0);
+    const dashboardData = {
+      totalCars: cars.length,
+      totalBookings: bookings.length,
+      pendingBookings: pendingBookings.length,
+      completedBookings: completedBookings.length,
+      recentBooking: bookings.slice(0, 3),
+      monthlyRevenue,
+    };
+    res.json({ success: true, dashboardData });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const updateUserImage = async (req, res) => {
+  try {
+    const { _id, role } = req.user;
+    const imageFile = req.file;
+    const fileBuffer = fs.readFileSync(imageFile.path);
+    const responce = await imagekit.upload({
+      file: fileBuffer,
+      fileName: imageFile.originalname,
+      folder: "/users",
+    });
+
+    var imageURL = imagekit.url({
+      path: responce.filePath,
+      transformation: [
+        { width: "1280" },
+        { quality: "auto" },
+        { format: "webp" },
+      ],
+    });
+    const image = imageURL;
+    await User.findByIdAndUpdate({ image });
+    res.json({ success: true, message: "Image Uploaded" });
 
   } catch (error) {
     console.log(error.message);
