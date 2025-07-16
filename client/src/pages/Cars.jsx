@@ -61,7 +61,7 @@ const Cars = () => {
         <p className='text-lg font-semibold text-gray-500 mx-auto xl:px-20'>Showing {filtercars.length} Cars</p>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto'>
           {filtercars.map((car, index) => (
-            <div key={index} >
+            <div key={index} className=' mb-20'>
               <CarCard car={car} />
             </div>
           ))}

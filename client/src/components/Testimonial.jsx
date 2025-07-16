@@ -3,56 +3,56 @@ import Title from "./Title";
 const Testimonial = () => {
     const cardsData = [
         {
-            image: 'https://randomuser.me/api/portraits/men/32.jpg',
+            image: 'https://wallpaperaccess.com/full/2615148.png',
             name: 'Virat Kohli',
             handle: '@imVkohli',
             date: 'July 1, 2025',
             comment: 'Excellent service and top-quality cars. Highly recommended!'
         },
         {
-            image: 'https://randomuser.me/api/portraits/women/44.jpg',
+            image: 'https://tse2.mm.bing.net/th/id/OIP.Ko-Rx2OXN-rEwUuxt5UgBQHaNK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
             name: 'Priyanka Chopra',
             handle: '@priyankachopra',
             date: 'June 15, 2025',
             comment: 'The booking process was smooth and the staff was very helpful.'
         },
         {
-            image: 'https://randomuser.me/api/portraits/men/45.jpg',
+            image: 'https://m.media-amazon.com/images/M/MV5BNTk1OTUxMzIzMV5BMl5BanBnXkFtZTcwMzMxMjI0Nw@@._V1_.jpg',
             name: 'Amitabh Bachchan',
             handle: '@SrBachchan',
             date: 'May 30, 2025',
             comment: 'A wonderful experience from start to finish.'
         },
         {
-            image: 'https://randomuser.me/api/portraits/women/68.jpg',
+            image: 'https://tse1.explicit.bing.net/th/id/OIP.61yeoehtzQxzxdz-tGkdBwHaF7?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
             name: 'Deepika Padukone',
             handle: '@deepikapadukone',
             date: 'May 20, 2025',
             comment: 'Loved the car selection and the easy pick-up process.'
         },
         {
-            image: 'https://randomuser.me/api/portraits/men/51.jpg',
+            image: 'https://cdn.gadgets360.com/content/assets/entertainment/shah-rukh-khan-poster.jpg',
             name: 'Shah Rukh Khan',
             handle: '@iamsrk',
             date: 'May 10, 2025',
             comment: 'Affordable prices and a great selection of cars.'
         },
         {
-            image: 'https://randomuser.me/api/portraits/women/12.jpg',
+            image: 'https://tse1.mm.bing.net/th/id/OIP.uNjZPltup9j_MrZmoo10jQHaNK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
             name: 'Alia Bhatt',
             handle: '@aliaa08',
             date: 'April 28, 2025',
             comment: 'Customer service was top-notch. Will book again!'
         },
         {
-            image: 'https://randomuser.me/api/portraits/men/60.jpg',
+            image: 'https://staticg.sportskeeda.com/editor/2022/11/e088c-16692740580993-1920.jpg',
             name: 'MS Dhoni',
             handle: '@msdhoni',
             date: 'April 20, 2025',
             comment: 'Radiant made undercutting all of our competitors an absolute breeze.'
         },
         {
-            image: 'https://randomuser.me/api/portraits/women/23.jpg',
+            image: 'https://i.pinimg.com/originals/db/2f/ef/db2fef3fe260e04c23e6ec28695c609b.jpg',
             name: 'Katrina Kaif',
             handle: '@katrinakaif',
             date: 'April 10, 2025',
