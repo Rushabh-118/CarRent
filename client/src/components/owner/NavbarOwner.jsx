@@ -3,6 +3,7 @@ import { assets } from '../../assets/assets';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import { motion } from 'framer-motion';
+import { FaCar } from 'react-icons/fa';
 
 const NavbarOwner = () => {
     const { user } = useAppContext();
@@ -14,12 +15,9 @@ const NavbarOwner = () => {
             transition={{ duration: 0.3 }}
             className="flex items-center justify-between px-6 md:px-10 py-4 bg-white border-b border-gray-200 shadow-sm"
         >
-            <Link to='/' className="hover:opacity-90 transition-opacity">
-                <img 
-                    src={assets.logo} 
-                    alt="Company Logo" 
-                    className="h-8 object-contain hover:scale-105 transition-transform duration-200"
-                />
+            <Link to='/' className="flex items-center gap-2">
+                <FaCar className="text-primary text-2xl" />
+                <span className="text-xl font-bold text-gray-600">CarRental</span>
             </Link>
 
             <div className="flex items-center gap-2">

@@ -1,222 +1,131 @@
-import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { useAppContext } from '../context/AppContext';
-import { FiSearch, FiMapPin, FiCalendar, FiClock } from 'react-icons/fi';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { FiArrowRight } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
-    const [pickupLocation, setPickupLocation] = useState('');
-    const { navigate, pickupDate, setPickupDate, returnDate, setReturnDate } = useAppContext();
-    const videoRefs = useRef([]);
+    // Parallax scroll effect
+    const ref = useRef(null);
+    const navigate = useNavigate();
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start start", "end start"]
+    });
+    
+    const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+    const opacityBg = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
 
-    // Your original city list
-    const cityList = [
-        "Nadiad", "Vadodara", "Ahemedabad", "Bharuch", "Surat"
-    ];
-
-    // Fallback images if videos don't load
-    const carImages = {
-        luxury: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-        sports: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80',
-        suv: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-    };
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        navigate(`/cars?pickupLocation=${pickupLocation}&pickupDate=${pickupDate}&returnDate=${returnDate}`);
-    };
-
-    // Animation variants
-    const containerVariants = {
+    // Text animation variants
+    const container = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2,
+                staggerChildren: 0.1,
                 delayChildren: 0.3
             }
         }
     };
 
-    const itemVariants = {
+    const item = {
         hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
-            transition: {
-                duration: 0.5,
-                ease: "easeOut"
-            }
-        }
-    };
-
-    const handleVideoHover = (index, isHovering) => {
-        const video = videoRefs.current[index];
-        if (video) {
-            if (isHovering) {
-                video.play().catch(e => console.log("Video play failed:", e));
-            } else {
-                video.pause();
-                video.currentTime = 0;
-            }
+            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
         }
     };
 
     return (
-        <div className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            {/* Background image (not video) */}
-            <div className="absolute inset-0 overflow-hidden opacity-30">
-                <div className="absolute inset-0 bg-black/50 z-10"></div>
-                <img 
-                    src={carImages.luxury} 
-                    alt="Premium Luxury Car" 
-                    className="w-full h-full object-cover object-center"
-                    loading="eager"
+        <section 
+            ref={ref}
+            className="relative h-screen w-full overflow-hidden"
+        >
+            {/* Background with parallax effect */}
+            <motion.div 
+                className="absolute inset-0 bg-black/30 z-0"
+                style={{ opacity: opacityBg }}
+            >
+                <motion.div 
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ 
+                        y: yBg,
+                        backgroundImage: "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2383&q=80')" 
+                    }}
                 />
-            </div>
+            </motion.div>
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-1"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-1"></div>
 
             {/* Content */}
-            <motion.div 
-                className="relative z-20 h-full flex flex-col items-center justify-center px-4 text-center"
-                initial="hidden"
-                animate="visible"
-                variants={containerVariants}
-            >
-                <motion.h1 
-                    className="text-4xl md:text-6xl font-bold mb-6"
-                    variants={itemVariants}
-                >
-                    <span className="text-blue-400">Premium</span> Car Rentals
-                </motion.h1>
-                
-                <motion.p 
-                    className="text-lg md:text-xl max-w-2xl mb-12"
-                    variants={itemVariants}
-                >
-                    Experience the thrill of driving the world's finest vehicles. From luxury sedans to high-performance sports cars, we offer exclusive rentals for every occasion.
-                </motion.p>
-
-                {/* Search Form */}
-                <motion.form 
-                    onSubmit={handleSearch}
-                    className="w-full max-w-4xl bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-2xl border border-white/10"
-                    variants={itemVariants}
-                >
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        {/* Pickup Location */}
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <FiMapPin className="text-blue-400" />
-                            </div>
-                            <select
-                                required
-                                value={pickupLocation}
-                                onChange={(e) => setPickupLocation(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-white/20 text-white border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-                            >
-                                <option value="" className="text-gray-400">Pickup Location</option>
-                                {cityList.map((city) => (
-                                    <option 
-                                        value={city} 
-                                        key={city}
-                                        className="text-gray-800"
-                                    >
-                                        {city}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Pickup Date */}
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <FiCalendar className="text-blue-400" />
-                            </div>
-                            <input
-                                value={pickupDate}
-                                onChange={e => setPickupDate(e.target.value)}
-                                type="date"
-                                min={new Date().toISOString().split("T")[0]}
-                                className="w-full pl-10 pr-4 py-3 bg-white/20 text-white border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent [&::-webkit-calendar-picker-indicator]:invert"
-                                required
-                            />
-                        </div>
-
-                        {/* Return Date */}
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <FiClock className="text-blue-400" />
-                            </div>
-                            <input
-                                value={returnDate}
-                                onChange={e => setReturnDate(e.target.value)}
-                                type="date"
-                                min={new Date().toISOString().split("T")[0]}
-                                className="w-full pl-10 pr-4 py-3 bg-white/20 text-white border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent [&::-webkit-calendar-picker-indicator]:invert"
-                                required
-                            />
-                        </div>
-
-                        {/* Search Button */}
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition-colors duration-300"
-                        >
-                            <FiSearch />
-                            Find Your Car
-                        </motion.button>
-                    </div>
-                </motion.form>
-
-                {/* Featured Cars with Video on Hover */}
+            <div className="relative z-10 h-full flex items-center">
                 <motion.div 
-                    className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full px-4"
-                    variants={itemVariants}
+                    className="container mx-auto px-6 lg:px-12"
+                    initial="hidden"
+                    animate="visible"
+                    variants={container}
                 >
-                    {[
-                        { image: carImages.luxury, title: "Luxury Sedans", desc: "Executive comfort and style" },
-                        { image: carImages.sports, title: "Sports Cars", desc: "Thrilling performance" },
-                        { image: carImages.suv, title: "Premium SUVs", desc: "Spacious and powerful" }
-                    ].map((car, index) => (
-                        <motion.div 
-                            key={index}
-                            className="relative group overflow-hidden rounded-xl h-64"
-                            whileHover={{ y: -10 }}
-                            transition={{ duration: 0.3 }}
-                            onHoverStart={() => handleVideoHover(index, true)}
-                            onHoverEnd={() => handleVideoHover(index, false)}
+                    <div className="max-w-2xl">
+                        <motion.span 
+                            className="inline-block text-blue-400 font-medium mb-4 tracking-wider"
+                            variants={item}
                         >
-                            {/* Video element */}
-                            <video
-                                ref={el => videoRefs.current[index] = el}
-                                muted
-                                loop
-                                playsInline
-                                preload="auto"
-                                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-100 opacity-0"
+                            PREMIUM MOBILITY SOLUTIONS
+                        </motion.span>
+                        
+                        <motion.h1 
+                            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
+                            variants={item}
+                        >
+                            <span className="text-white">Redefining</span>{' '}
+                            <span className="text-blue-400">Luxury</span>{' '}
+                            <span className="text-white">Travel</span>
+                        </motion.h1>
+                        
+                        <motion.p 
+                            className="text-lg md:text-xl text-gray-300 mb-10 max-w-lg"
+                            variants={item}
+                        >
+                            Experience unparalleled comfort with our curated fleet of premium vehicles, tailored for those who demand excellence.
+                        </motion.p>
+                        
+                        <motion.div
+                            className="flex flex-col sm:flex-row gap-4"
+                            variants={item}
+                        >
+                            <motion.button
+                                whileHover={{ 
+                                    x: 5,
+                                    transition: { duration: 0.3 }
+                                }}
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg transition-colors duration-300 text-lg font-medium"
+                                onClick={() => navigate('/cars')}
                             >
-                                <source src={car.video} type="video/mp4" />
-                            </video>
-                            
-                            {/* Fallback image */}
-                            <img 
-                                src={car.image} 
-                                alt={car.title} 
-                                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0 opacity-100"
-                                loading="lazy"
-                            />
-                            
-                            {/* Content overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10"></div>
-                            <div className="absolute bottom-0 left-0 p-6 z-20 text-left">
-                                <h3 className="text-xl font-bold">{car.title}</h3>
-                                <p className="text-gray-300">{car.desc}</p>
-                            </div>
+                                Explore Fleet <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                            </motion.button>
                         </motion.div>
-                    ))}
+                    </div>
                 </motion.div>
+            </div>
+
+            {/* Scrolling indicator */}
+            <motion.div 
+                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+            >
+                <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+                    <motion.div 
+                        className="w-1 h-2 bg-white rounded-full mt-2"
+                        animate={{ y: [0, 4, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                </div>
             </motion.div>
-        </div>
+        </section>
     );
 };
 

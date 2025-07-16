@@ -1,12 +1,17 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { FaCar } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 py-12 bg-gray-50 text-gray-700'>
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
                 <div className='max-w-80'>
-                    <img src={assets.logo} alt="" className='mb-4 h-8 md:h-9'/>
+                    <Link to='/' className="flex items-center gap-2 mb-5">
+                        <FaCar className="text-primary text-2xl" />
+                        <span className="text-xl font-bold">CarRental</span>
+                    </Link>
                     <p className='text-sm'>
                         Welcome to our car rental service! We offer a wide range of vehicles to suit your needs, whether you're looking for a compact car for city driving or a spacious SUV for family trips. Our mission is to provide you with a seamless and enjoyable rental experience.
                     </p>

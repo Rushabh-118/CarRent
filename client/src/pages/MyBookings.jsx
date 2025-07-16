@@ -45,11 +45,14 @@ const MyBookings = () => {
 
   return (
     <div className='px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32 py-12 max-w-7xl mx-auto'>
-      <Title 
-        title="My Bookings" 
-        subtitle="Manage your bookings and view details" 
-        align="left"
-      />
+      <div className='mt-20'>
+        <Title 
+          title="My Bookings" 
+          subtitle="Manage your bookings and view details" 
+          align="left"
+        />
+
+      </div>
       
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
