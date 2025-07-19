@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import userRouter from "./routes/userRoute.js";
 import ownerRouter from "./routes/ownerRoute.js";
 import bookingRouter from "./routes/BookingRoute.js";
+import feedbackRouter from "./routes/FeedbackRoute.js";
 
 const app = express()
 app.use(cors());
@@ -17,5 +18,6 @@ app.get('/', (req, res) => res.send('server is running...!'))
 app.use('/api/user',userRouter);
 app.use('/api/owner',ownerRouter);
 app.use('/api/booking',bookingRouter);
+app.use('/api/feedback', feedbackRouter);
 
 app.listen(PORT, () => console.log(`Example app listening on port http://localhost:${PORT}`))

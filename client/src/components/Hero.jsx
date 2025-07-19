@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +35,41 @@ const Hero = () => {
             transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
         }
     };
+
+    // Looping text animation
+    const words = ["Luxury", "Comfort", "Premium", "Elegance", "Ultimate"];
+    const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [currentText, setCurrentText] = useState('');
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [typingSpeed, setTypingSpeed] = useState(150);
+
+    useEffect(() => {
+        let timer;
+        
+        const type = () => {
+            const currentWord = words[currentWordIndex];
+            
+            if (isDeleting) {
+                setCurrentText(currentWord.substring(0, currentText.length - 1));
+                setTypingSpeed(75);
+            } else {
+                setCurrentText(currentWord.substring(0, currentText.length + 1));
+                setTypingSpeed(150);
+            }
+            
+            if (!isDeleting && currentText === currentWord) {
+                setTimeout(() => setIsDeleting(true), 1000);
+            } else if (isDeleting && currentText === '') {
+                setIsDeleting(false);
+                setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+                setTypingSpeed(500);
+            }
+        };
+        
+        timer = setTimeout(type, typingSpeed);
+        
+        return () => clearTimeout(timer);
+    }, [currentText, currentWordIndex, isDeleting, typingSpeed, words]);
 
     return (
         <section 
@@ -80,7 +115,18 @@ const Hero = () => {
                             variants={item}
                         >
                             <span className="text-white">Redefining</span>{' '}
-                            <span className="text-blue-400">Luxury</span>{' '}
+                            <span className="text-blue-400 relative inline-flex items-center">
+                                {currentText}
+                                <motion.span 
+                                    className="inline-block w-1 h-20 bg-white ml-1"
+                                    animate={{ opacity: [0, 1, 0] }}
+                                    transition={{ 
+                                        duration: 0.8,
+                                        repeat: Infinity,
+                                        ease: "linear"
+                                    }}
+                                />
+                            </span>{' '}
                             <span className="text-white">Travel</span>
                         </motion.h1>
                         
@@ -101,7 +147,7 @@ const Hero = () => {
                                     transition: { duration: 0.3 }
                                 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg transition-colors duration-300 text-lg font-medium"
+                                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg transition-colors duration-300 text-lg font-medium group"
                                 onClick={() => navigate('/cars')}
                             >
                                 Explore Fleet <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -125,6 +171,9 @@ const Hero = () => {
                     />
                 </div>
             </motion.div>
+
+            {/* Additional decorative elements */}
+            <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black to-transparent z-10"></div>
         </section>
     );
 };

@@ -41,7 +41,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className={`fixed w-full z-50 flex items-center justify-between px-4 md:px-8 lg:px-12 py-3 text-white transition-all duration-300
+<nav className={`fixed top-0 w-full z-50 flex items-center justify-between px-4 md:px-8 lg:px-12 py-3 text-white transition-all duration-300
             ${scrolled ? 'bg-white/20 backdrop-blur-md border-b border-white/10 shadow-lg' : 'bg-transparent'}`}>
             
             {/* Left side - Logo and mobile menu */}

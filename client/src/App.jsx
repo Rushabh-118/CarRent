@@ -14,6 +14,7 @@ import ManageBookings from './pages/Owner/ManageBookings';
 import Login from './components/Login';
 import { Toaster } from 'react-hot-toast'
 import { useAppContext } from './context/AppContext';
+import FeedbackForm from './components/FeedbackForm';
 
 const App = () => {
   const {showLogin} = useAppContext();
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/cars" element={<Cars />} />
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/feedback" element={<FeedbackForm />} />
         <Route path='/owner' element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path='add-car' element={<AddCar />} />
