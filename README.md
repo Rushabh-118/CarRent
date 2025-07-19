@@ -1,75 +1,62 @@
-🚗 Car Rental Website [CarRent]
+# 🚗 Car Rental Website [CarRent]
+
 A full-stack car rental website built with the MERN stack. Users can browse, book, and manage car rentals, while owners can list and manage their cars. Designed with a modern UI and seamless user experience.
 
-🛠️ Features
-🔍 Search and filter cars by location, price, and type
+---
 
-📅 Book and schedule rentals
-👤 User and Owner dashboards
-🧾 Order history and booking management
-📸 Image upload for cars
-💳 Payment gateway integration (Stripe/placeholder)
-🧑‍💼 Admin features for car verification and approval
+## 🛠️ Features
 
-🧰 Tech Stack
+- 🔍 Search and filter cars by location, price, and type
+- 📅 Book and schedule rentals
+- 👤 User and Owner dashboards
+- 🧾 Order history and booking management
+- 📸 Image upload for cars
+- 💳 Payment gateway integration (Stripe/placeholder)
+- 🧑‍💼 Admin features for car verification and approval
 
-Frontend :-
-React
-Axios
-TailwindCSS
-React Router
-Toast Notifications
+---
 
-Backend :-
-Node.js
-Express.js
-MongoDB (Mongoose)
-Multer (Image Upload)
-JWT Authentication
+## 🧰 Tech Stack
 
-🚀 Getting Started
+### Frontend
+- React
+- Axios
+- TailwindCSS
+- Toast Notifications
 
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Multer (Image Upload)
+- JWT Authentication
 
-Clone the repository
-bash
-Copy
-Edit
-git clone https://github.com/your-username/car-rental.git
-cd car-rental
+---
 
-Install dependencies
-bash
-Copy
-Edit
+## 🚀 Getting Started
 
-npm install   # for backend
+### Clone the repository
 
-cd client
-npm install   # for frontend
+```bash
+git clone https://github.com/Rushabh-118/CarRent.git
+cd CarRent
+```
 
-Run the application
-bash
-Copy
-Edit
-# Start backend
-npm start
+### install packages
 
-# Start frontend (in client/)
-cd client
-npm start
+```bash
+npm run build
+```
 
+### start backend and frontend
 
-📂 Folder Structure
-bash
-Copy
-Edit
-car-rental/
-├── client/        # React Frontend
-├── server/        # Node + Express Backend
-└── README.md
+#Backend
+```bash
+npm start server 
+```
 
-
-✨ Credits
-Developed by Rushabh Mistry – MERN Stack Developer.
-Inspired by modern car rental services.
+#Frontend
+```bash
+npm run dev 
+```
 
