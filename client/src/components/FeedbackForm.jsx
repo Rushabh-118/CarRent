@@ -37,7 +37,6 @@ const FeedbackForm = () => {
       ...prev,
       [name]: value,
     }));
-    // Clear error when user types
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -93,7 +92,7 @@ const FeedbackForm = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-md mt-5 mb-20 mx-auto p-8 bg-white rounded-xl shadow-lg"
+        className="max-w-3xl mt-5 mb-20 mx-auto p-8 bg-white rounded-xl shadow-lg"
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-blue-800 mb-2">Share Your Experience</h2>
