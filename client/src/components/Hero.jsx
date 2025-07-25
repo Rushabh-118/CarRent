@@ -4,7 +4,6 @@ import { FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
-    // Parallax scroll effect
     const ref = useRef(null);
     const navigate = useNavigate();
     const { scrollYProgress } = useScroll({
@@ -15,7 +14,42 @@ const Hero = () => {
     const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
     const opacityBg = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
 
-    // Text animation variants
+    // Background images with working URLs
+    const backgrounds = [
+        {
+            id: 1,
+            url: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2383&q=80",
+            thumbnail: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+        },
+        {
+            id: 2,
+            url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2370&q=80",
+            thumbnail: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+        },
+        {
+            id: 3,
+            url: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2370&q=80",
+            thumbnail: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+        },
+        {
+            id: 4,
+            url: "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2372&q=80",
+            thumbnail: "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+        }
+    ];
+
+    const [currentBackground, setCurrentBackground] = useState(backgrounds[0]);
+    const [isChangingBg, setIsChangingBg] = useState(false);
+
+    const changeBackground = (bg) => {
+        setIsChangingBg(true);
+        setTimeout(() => {
+            setCurrentBackground(bg);
+            setIsChangingBg(false);
+        }, 300);
+    };
+
+    // Text animation variants (same as before)
     const container = {
         hidden: { opacity: 0 },
         visible: {
@@ -36,7 +70,7 @@ const Hero = () => {
         }
     };
 
-    // Looping text animation
+    // Looping text animation (same as before)
     const words = ["Luxury", "Comfort", "Premium", "Elegance", "Ultimate"];
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentText, setCurrentText] = useState('');
@@ -85,7 +119,9 @@ const Hero = () => {
                     className="absolute inset-0 bg-cover bg-center"
                     style={{ 
                         y: yBg,
-                        backgroundImage: "url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2383&q=80')" 
+                        backgroundImage: `url('${currentBackground.url}')`,
+                        opacity: isChangingBg ? 0 : 1,
+                        transition: 'opacity 0.3s ease'
                     }}
                 />
             </motion.div>
@@ -155,6 +191,25 @@ const Hero = () => {
                         </motion.div>
                     </div>
                 </motion.div>
+            </div>
+
+            {/* Background selector thumbnails */}
+            <div className="absolute right-4 bottom-1/2 transform translate-y-1/2 z-10 flex flex-col gap-4">
+                {backgrounds.map((bg) => (
+                    <motion.button
+                        key={bg.id}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`w-16 h-16 rounded-lg overflow-hidden border-2 ${currentBackground.id === bg.id ? 'border-blue-400' : 'border-white/30'}`}
+                        onClick={() => changeBackground(bg)}
+                    >
+                        <img 
+                            src={bg.thumbnail} 
+                            alt={`Background ${bg.id}`}
+                            className="w-full h-full object-cover"
+                        />
+                    </motion.button>
+                ))}
             </div>
 
             {/* Scrolling indicator */}
