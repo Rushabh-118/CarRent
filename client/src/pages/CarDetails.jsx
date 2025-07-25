@@ -27,6 +27,11 @@ const CarDetails = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      if(pickupDate === returnDate) {
+        toast.error("Pickup and return date cannot be the same.");
+        setIsSubmitting(false);
+        return; 
+      }
       const { data } = await axios.post('/api/booking/create', {
         car: id,
         pickupDate,
