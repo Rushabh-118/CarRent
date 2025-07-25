@@ -23,18 +23,18 @@ const Hero = () => {
         },
         {
             id: 2,
-            url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2370&q=80",
-            thumbnail: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+            url: "https://wallpapers.com/images/hd/best-car-cgdpiux5stu6zk7d.jpg",
+            thumbnail: "https://wallpapers.com/images/hd/best-car-cgdpiux5stu6zk7d.jpg"
         },
         {
             id: 3,
-            url: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2370&q=80",
-            thumbnail: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+            url: "https://wallpapercave.com/wp/wp2035818.jpg",
+            thumbnail: "https://wallpapercave.com/wp/wp2035818.jpg"
         },
         {
             id: 4,
-            url: "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2372&q=80",
-            thumbnail: "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
+            url: "https://images.pexels.com/photos/2127012/pexels-photo-2127012.jpeg",
+            thumbnail: "https://images.pexels.com/photos/2127012/pexels-photo-2127012.jpeg"
         }
     ];
 
