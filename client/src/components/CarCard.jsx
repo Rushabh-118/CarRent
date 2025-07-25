@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { FiUsers, FiDroplet, FiNavigation, FiClock, FiStar } from 'react-icons/fi';
 import { FaCarAlt, FaGasPump } from 'react-icons/fa';
-import { IoMdSpeedometer } from 'react-icons/io';
-import { GiCarDoor } from 'react-icons/gi';
 
 const CarCard = ({ car }) => {
     const currency = import.meta.env.VITE_CURRENCY;
@@ -112,7 +110,7 @@ const CarCard = ({ car }) => {
                             <p className="font-medium text-sm">{car.transmission}</p>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 {/* Location */}
