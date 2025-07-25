@@ -222,9 +222,6 @@ const AddCar = () => {
               <option value="Sedan">Sedan</option>
               <option value="SUV">SUV</option>
               <option value="Van">Van</option>
-              <option value="Hatchback">Hatchback</option>
-              <option value="Coupe">Coupe</option>
-              <option value="Convertible">Convertible</option>
             </select>
           </div>
         </motion.div>
@@ -258,7 +255,7 @@ const AddCar = () => {
               <option value="Diesel">Diesel</option>
               <option value="Electric">Electric</option>
               <option value="Hybrid">Hybrid</option>
-              <option value="Petrol">PETROL</option>
+              <option value="Petrol">Petrol</option>
             </select>
           </div>
           <div className="flex flex-col w-full">

@@ -113,15 +113,6 @@ const CarCard = ({ car }) => {
                         </div>
                     </div>
                     
-                    <div className="flex items-center bg-gray-50 rounded-lg p-2">
-                        <div className="bg-blue-100 p-2 rounded-lg mr-3 text-blue-600">
-                            <GiCarDoor size={16} />
-                        </div>
-                        <div>
-                            <p className="text-xs text-gray-500">Doors</p>
-                            <p className="font-medium text-sm">{car.doors || 4}</p>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Location */}
