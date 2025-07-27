@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     role: {type: String, enum: ["owner","user"], default: 'user'},
-    image: {type: String, default: ''}
+    image: {type: String, default: ''},
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Car" }]
 },{timestamps: true})
 
 const User = mongoose.model('User', userSchema);

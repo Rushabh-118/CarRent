@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppContext } from '../context/AppContext';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { FiUsers, FiNavigation, FiHeart } from 'react-icons/fi';
@@ -8,7 +9,14 @@ import { IoMdSpeedometer } from 'react-icons/io';
 const CarCard = ({ car }) => {
     const currency = import.meta.env.VITE_CURRENCY;
     const navigate = useNavigate();
+    const { user, addFavorite, removeFavorite } = useAppContext();
     const [isFavorite, setIsFavorite] = React.useState(false);
+
+    React.useEffect(() => {
+        if (user && user.favorites) {
+            setIsFavorite(user.favorites.includes(car._id));
+        }
+    }, [user, car._id]);
 
     return (
         <motion.div 
@@ -45,9 +53,15 @@ const CarCard = ({ car }) => {
                 
                 {/* Favorite button */}
                 <motion.button
-                    onClick={(e) => {
+                    onClick={async (e) => {
                         e.stopPropagation();
-                        setIsFavorite(!isFavorite);
+                        if (!isFavorite) {
+                            const success = await addFavorite(car._id);
+                            if (success) setIsFavorite(true);
+                        } else {
+                            const success = await removeFavorite(car._id);
+                            if (success) setIsFavorite(false);
+                        }
                     }}
                     className="absolute top-4 right-4 z-10 p-2 rounded-full backdrop-blur-sm bg-white/80 shadow-sm"
                     whileTap={{ scale: 0.9 }}

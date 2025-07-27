@@ -61,6 +61,41 @@ export const AppProvider = ({ children }) => {
     }
   }, [token]);
 
+  // Favorite API helpers
+  const addFavorite = async (carId) => {
+    try {
+      const { data } = await axios.post("/api/favorite/add", { carId });
+      if (!data.success) toast.error(data.message);
+      return data.success;
+    } catch (error) {
+      toast.error(error.message);
+      return false;
+    }
+  };
+
+  const removeFavorite = async (carId) => {
+    try {
+      const { data } = await axios.post("/api/favorite/remove", { carId });
+      if (!data.success) toast.error(data.message);
+      return data.success;
+    } catch (error) {
+      toast.error(error.message);
+      return false;
+    }
+  };
+
+  const getFavorites = async () => {
+    try {
+      const { data } = await axios.get("/api/favorite/list");
+      if (data.success) return data.favorites || [];
+      toast.error(data.message);
+      return [];
+    } catch (error) {
+      toast.error(error.message);
+      return [];
+    }
+  };
+
   const value = {
     navigate,
     currency,
@@ -82,6 +117,9 @@ export const AppProvider = ({ children }) => {
     setPickupDate,
     returnDate,
     setReturnDate,
+    addFavorite,
+    removeFavorite,
+    getFavorites,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
