@@ -22,6 +22,12 @@ const feedbackSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  feedbackType: {
+    type: String,
+    required: true,
+    enum: ['praise', 'suggestion', 'bug', 'general'],
+    default: 'general'
+  },
   createdAt: {
     type: Date,
     default: Date.now,

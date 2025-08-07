@@ -2,9 +2,9 @@ import Feedback from '../Models/Feedback.js';
 
 export const createFeedback = async (req, res) => {
   try {
-    const { name, email, rating, message } = req.body;
+    const { name, email, rating, message, feedbackType } = req.body;
 
-    if (!name || !email || !rating || !message) {
+    if (!name || !email || !rating || !message || !feedbackType) {
       return res.status(400).json({ success: false, message: 'All fields are required' });
     }
 
@@ -13,6 +13,7 @@ export const createFeedback = async (req, res) => {
       email,
       rating,
       message,
+      feedbackType,
     });
 
     await feedback.save();
