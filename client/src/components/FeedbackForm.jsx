@@ -199,22 +199,24 @@ const FeedbackForm = () => {
         transition={{ duration: 0.5 }}
         className="max-w-3xl mt-5 mb-20 mx-auto p-6 md:p-8 bg-white rounded-xl shadow-lg border border-gray-100"
       >
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            We Value Your Feedback
-          </h2>
-          <p className="text-gray-600 max-w-lg mx-auto">
-            Your opinion matters to us! Please take a moment to let us know how we're doing.
-          </p>
-        </div>
 
-        <div className="mb-8">
-          <DotLottieReact
-            src="https://lottie.host/d70a47d2-73ae-49f0-af02-290f7f6fbcf0/ctg5FH5gLA.lottie"
-            loop
-            autoplay
-            className="max-w-xs mx-auto"
-          />
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 md:gap-8">
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              We Value Your Feedback
+            </h2>
+            <p className="text-gray-600 max-w-lg mx-auto md:mx-0">
+              Your opinion matters to us! Please take a moment to let us know how we're doing.
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <DotLottieReact
+              src="https://lottie.host/d70a47d2-73ae-49f0-af02-290f7f6fbcf0/ctg5FH5gLA.lottie"
+              loop
+              autoplay
+              className="max-w-xs w-40 md:w-56"
+            />
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
