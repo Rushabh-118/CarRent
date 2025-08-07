@@ -9,6 +9,7 @@ const Features = () => {
   const navigate = useNavigate();
   const { cars, user } = useAppContext();
   const [isMobile, setIsMobile] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -16,6 +17,13 @@ const Features = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    if (cars.length > 0) {
+      const timer = setTimeout(() => setLoading(false), 1000); // simulate loading
+      return () => clearTimeout(timer);
+    }
+  }, [cars]);
 
   const favoriteIds = user?.favorites || [];
   const sortedCars = [...cars].sort((a, b) => {
@@ -27,8 +35,8 @@ const Features = () => {
   const visibleCars = sortedCars.slice(0, 5);
   const cardCount = visibleCars.length;
   const radius = isMobile ? 240 : 400;
-  const cardWidth = isMobile ? 320 : 480;   // 🔥 Wider cards
-  const cardHeight = isMobile ? 500 : 525;  // 🔥 Taller cards
+  const cardWidth = isMobile ? 320 : 480;
+  const cardHeight = isMobile ? 500 : 525;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const angle = -currentIndex * (360 / cardCount);
@@ -51,7 +59,6 @@ const Features = () => {
       </div>
 
       <div className="relative w-full max-w-7xl min-h-[800px]">
-        {/* Left Arrow */}
         <button
           onClick={rotateLeft}
           className="absolute left-0 z-20 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-blue-50 backdrop-blur-md rounded-full p-4 shadow-xl ring-1 ring-gray-200 transition-all duration-300"
@@ -60,7 +67,6 @@ const Features = () => {
           <img src={assets.arrow_icon} alt="left" className="w-6 h-6 rotate-180" />
         </button>
 
-        {/* 3D Carousel */}
         <div
           className="relative w-full min-h-[800px] mx-auto overflow-visible"
           style={{ perspective: '1600px' }}
@@ -73,36 +79,46 @@ const Features = () => {
               transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
-            {visibleCars.map((car, idx) => {
-              const theta = (360 / cardCount) * idx;
-              const scale =
-                1 - Math.abs(Math.sin(((theta + angle) * Math.PI) / 180)) * 0.2;
+            {loading
+              ? Array.from({ length: 5 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="absolute w-[480px] h-[525px] bg-gray-200 animate-pulse rounded-2xl"
+                    style={{
+                      transform: `rotateY(${(360 / cardCount) * idx}deg) translateZ(${radius}px)`,
+                      transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                    }}
+                  ></div>
+                ))
+              : visibleCars.map((car, idx) => {
+                  const theta = (360 / cardCount) * idx;
+                  const scale =
+                    1 - Math.abs(Math.sin(((theta + angle) * Math.PI) / 180)) * 0.2;
 
-              return (
-                <div
-                  key={car._id}
-                  className="absolute rounded-2xl overflow-visible shadow-2xl ring-1 ring-gray-200 bg-white hover:scale-105 transition-transform"
-                  style={{
-                    width: cardWidth,
-                    height: cardHeight,
-                    transform: `
-                      rotateY(${theta}deg)
-                      translateZ(${radius}px)
-                      scale(${scale})
-                    `,
-                    transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                    filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.15))',
-                    zIndex: Math.round(scale * 100),
-                  }}
-                >
-                  <CarCard car={car} />
-                </div>
-              );
-            })}
+                  return (
+                    <div
+                      key={car._id}
+                      className="absolute rounded-2xl overflow-visible shadow-2xl ring-1 ring-gray-200 bg-white hover:scale-105 transition-transform"
+                      style={{
+                        width: cardWidth,
+                        height: cardHeight,
+                        transform: `
+                          rotateY(${theta}deg)
+                          translateZ(${radius}px)
+                          scale(${scale})
+                        `,
+                        transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                        filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.15))',
+                        zIndex: Math.round(scale * 100),
+                      }}
+                    >
+                      <CarCard car={car} />
+                    </div>
+                  );
+                })}
           </div>
         </div>
 
-        {/* Right Arrow */}
         <button
           onClick={rotateRight}
           className="absolute right-0 z-20 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-blue-50 backdrop-blur-md rounded-full p-4 shadow-xl ring-1 ring-gray-200 transition-all duration-300"
@@ -112,7 +128,6 @@ const Features = () => {
         </button>
       </div>
 
-      {/* Dots */}
       <div className="flex gap-4 mt-10">
         {visibleCars.map((_, idx) => (
           <button
@@ -127,7 +142,6 @@ const Features = () => {
         ))}
       </div>
 
-      {/* CTA */}
       <button
         onClick={() => navigate('/cars')}
         className="group flex items-center justify-center gap-2 mt-16 px-10 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg"
