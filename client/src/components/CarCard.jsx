@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { FiUsers, FiNavigation, FiHeart } from 'react-icons/fi';
 import { FaGasPump, FaCarAlt } from 'react-icons/fa';
-import { IoMdSpeedometer } from 'react-icons/io';
 
 const CarCard = ({ car }) => {
     const currency = import.meta.env.VITE_CURRENCY;
