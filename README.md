@@ -35,28 +35,8 @@ A full-stack car rental website built with the MERN stack. Users can browse, boo
 
 ## 🚀 Getting Started
 
-### Clone the repository
-
 ```bash
-git clone https://github.com/Rushabh-118/CarRent.git
-cd CarRent
+https://carrent-118.onrender.com/
 ```
 
-### install packages
-
-```bash
-npm run build
-```
-
-### start backend and frontend
-
-#Backend
-```bash
-npm start server 
-```
-
-#Frontend
-```bash
-npm run dev 
-```
 
