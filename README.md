@@ -6,12 +6,10 @@ A full-stack car rental website built with the MERN stack. Users can browse, boo
 
 ## 🛠️ Features
 
-- 🔍 Search and filter cars by location, price, and type
 - 📅 Book and schedule rentals
 - 👤 User and Owner dashboards
 - 🧾 Order history and booking management
 - 📸 Image upload for cars
-- 💳 Payment gateway integration (Stripe/placeholder)
 - 🧑‍💼 Admin features for car verification and approval
 
 ---
